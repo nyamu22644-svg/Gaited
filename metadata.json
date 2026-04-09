@@ -1,0 +1,8 @@
+{
+  "name": "GAITED - Academic Marketplace",
+  "description": "A Kenyan-focused academic marketplace for buying and selling lecture notes via M-Pesa micro-transactions. Features wallet management, bounties, and secure Q&A.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
