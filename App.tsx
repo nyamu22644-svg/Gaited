@@ -5,6 +5,7 @@ import DashboardPage from './pages/DashboardPage';
 import BountyBoard from './pages/BountyBoard';
 import AdminDashboard from './pages/AdminDashboard';
 import NoteDetail from './pages/NoteDetail';
+import StudyPage from './pages/StudyPage';
 import SearchHero from './components/SearchHero';
 import Leaderboard from './components/Leaderboard';
 import OnboardingPage from './pages/OnboardingPage';
@@ -14,6 +15,20 @@ import { Note, TopSeller, Profile } from './types';
 import { formatCurrency } from './lib/utils';
 import { ArrowRight } from 'lucide-react';
 import { supabase } from './lib/supabaseClient';
+
+const GUEST_KEY = 'gaited.guest.user';
+
+const getGuestProfile = (): Profile | null => {
+  if (typeof window === 'undefined') return null;
+  const raw = localStorage.getItem(GUEST_KEY);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as Profile;
+  } catch {
+    localStorage.removeItem(GUEST_KEY);
+    return null;
+  }
+};
 
 const App: React.FC = () => {
   // Routing State
@@ -30,6 +45,7 @@ const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const [user, setUser] = useState<Profile | null>(null);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
+  const isGuestUser = Boolean(user?.id?.startsWith('guest_'));
 
   // Handle Browser Back Button
   useEffect(() => {
@@ -40,6 +56,15 @@ const App: React.FC = () => {
 
   // Auth Listener
   useEffect(() => {
+    const guestProfile = getGuestProfile();
+    if (guestProfile) {
+      setUser(guestProfile);
+      setIsLoggedIn(true);
+      setIsLoadingAuth(false);
+      setActiveTab('study');
+      return;
+    }
+
     const checkUser = async () => {
       const profile = await getCurrentUserProfile();
       if (profile) {
@@ -77,7 +102,7 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && !isGuestUser) {
       Promise.all([
         getNotes(),
         getTopSellers()
@@ -108,7 +133,24 @@ const App: React.FC = () => {
   };
 
   const handleLogout = async () => {
+    if (isGuestUser) {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem(GUEST_KEY);
+      }
+      setIsLoggedIn(false);
+      setUser(null);
+      setActiveTab('home');
+      navigate('/');
+      return;
+    }
     await supabase.auth.signOut();
+  };
+
+  const handleGuestLogin = (profile: Profile) => {
+    setUser(profile);
+    setIsLoggedIn(true);
+    setIsLoadingAuth(false);
+    setActiveTab('study');
   };
 
   const handleOnboardingComplete = async () => {
@@ -126,7 +168,7 @@ const App: React.FC = () => {
   // 1. Auth Check
   if (!isLoggedIn) {
     // Pass empty callback as onAuthStateChange handles logic
-    return <LoginPage onLoginSuccess={() => {}} />;
+    return <LoginPage onLoginSuccess={(guestProfile) => { if (guestProfile) handleGuestLogin(guestProfile); }} />;
   }
 
   // 2. Onboarding Check
@@ -168,6 +210,8 @@ const App: React.FC = () => {
             user={user}
           />
         );
+      case 'study':
+        return <StudyPage user={user} />;
       case 'bounties':
         return <BountyBoard />;
       case 'home':

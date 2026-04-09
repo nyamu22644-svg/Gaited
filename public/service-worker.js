@@ -1,9 +1,15 @@
-const STATIC_CACHE = 'gaited-static-v1';
+const STATIC_CACHE = 'gaited-static-v3';
 const PURCHASED_CACHE = 'gaited-purchased-notes-v1';
 
 const URLS_TO_CACHE = [
   '/',
-  '/index.html',
+  '/manifest.webmanifest',
+  '/icons/gaited-icon.svg',
+  '/icons/gaited-maskable.svg',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/icons/icon-512-maskable.png',
+  '/icons/apple-touch-icon.png',
   // Add other critical static assets here in a production build
 ];
 
@@ -41,6 +47,21 @@ self.addEventListener('fetch', (event) => {
 
   event.respondWith(
     (async () => {
+      const staticCache = await caches.open(STATIC_CACHE);
+
+      // Network-first for navigation to avoid stale HTML after deploys
+      if (event.request.mode === 'navigate') {
+        try {
+          const fresh = await fetch(event.request);
+          staticCache.put('/index.html', fresh.clone());
+          return fresh;
+        } catch (error) {
+          const cachedIndex = await staticCache.match('/index.html');
+          if (cachedIndex) return cachedIndex;
+          throw error;
+        }
+      }
+
       // 1. Priority: Check PURCHASED_CACHE (for offline notes)
       // Open specifically to prioritize these high-value assets
       const purchasedCache = await caches.open(PURCHASED_CACHE);
@@ -50,7 +71,6 @@ self.addEventListener('fetch', (event) => {
       }
 
       // 2. Check STATIC_CACHE
-      const staticCache = await caches.open(STATIC_CACHE);
       const staticResponse = await staticCache.match(event.request);
       if (staticResponse) {
         return staticResponse;
@@ -62,13 +82,6 @@ self.addEventListener('fetch', (event) => {
         return networkResponse;
       } catch (error) {
         // 4. Offline Fallback for Navigation
-        if (event.request.mode === 'navigate') {
-          // Try retrieving index.html from static cache
-          const home = await staticCache.match('/index.html');
-          if (home) return home;
-          // Fallback just in case
-          return caches.match('/index.html'); 
-        }
         throw error;
       }
     })()

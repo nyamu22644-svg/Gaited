@@ -86,15 +86,18 @@ const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) => {
   };
 
   return (
-    <div className="min-h-screen bg-green-50 flex flex-col justify-center items-center p-4">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-green-100">
+    <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center p-4 relative overflow-hidden">
+      <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-green-200/40 blur-3xl" />
+      <div className="absolute -bottom-24 -right-24 w-64 h-64 rounded-full bg-emerald-200/40 blur-3xl" />
+
+      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-200 relative">
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Complete Your Profile</h1>
           <p className="text-gray-500 text-sm mt-2">
             To buy and sell notes, we need your M-Pesa details for payments.
           </p>
           {referralCode && (
-            <div className="mt-2 text-xs bg-indigo-50 text-indigo-600 py-1 px-2 rounded-lg inline-block font-medium border border-indigo-100">
+            <div className="mt-2 text-xs bg-green-50 text-green-700 py-1 px-2 rounded-lg inline-block font-medium border border-green-200">
                Invited by user with code: {referralCode}
             </div>
           )}
@@ -103,7 +106,7 @@ const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) => {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Username */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">Username</label>
             <div className="relative">
               <User className="absolute left-3 top-3 text-gray-400" size={18} />
               <input
@@ -111,7 +114,7 @@ const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) => {
                 type="text"
                 value={formData.username}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
                 placeholder="e.g. Scholar_Kim"
                 required
               />
@@ -120,7 +123,7 @@ const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) => {
 
           {/* University - Searchable */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">University</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">University</label>
             <div className="relative">
               <School className="absolute left-3 top-3 text-gray-400" size={18} />
               <input
@@ -128,7 +131,7 @@ const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) => {
                 name="university"
                 value={formData.university}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none bg-white"
+                className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none bg-white"
                 placeholder="Search or Select University..."
               />
               <datalist id="universities-list">
@@ -141,7 +144,7 @@ const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) => {
 
           {/* M-Pesa Number */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">M-Pesa Number</label>
+            <label className="block text-sm font-medium text-slate-700 mb-1">M-Pesa Number</label>
             <div className="relative">
               <Smartphone className="absolute left-3 top-3 text-gray-400" size={18} />
               <input
@@ -149,7 +152,7 @@ const OnboardingPage: React.FC<OnboardingPageProps> = ({ onComplete }) => {
                 type="tel"
                 value={formData.mpesaNumber}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
                 placeholder="0712 345 678"
                 required
               />

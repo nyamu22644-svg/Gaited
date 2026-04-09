@@ -34,7 +34,6 @@ export const CommentInput: React.FC<{ onSubmit: (text: string) => void }> = ({ o
     const newVal = e.target.value;
     setText(newVal);
 
-    // Real-time warning for user education
     if (newVal !== sanitizeContent(newVal)) {
       setWarning('Warning: Phone numbers and emails are automatically hidden to prevent scams.');
     } else {
@@ -44,7 +43,7 @@ export const CommentInput: React.FC<{ onSubmit: (text: string) => void }> = ({ o
 
   const handleSubmit = () => {
     if (!text.trim()) return;
-    onSubmit(sanitizeContent(text)); // Double sanitize on submit just in case
+    onSubmit(sanitizeContent(text));
     setText('');
     setWarning('');
   };
@@ -59,7 +58,7 @@ export const CommentInput: React.FC<{ onSubmit: (text: string) => void }> = ({ o
           value={text}
           onChange={handleChange}
         />
-        <button 
+        <button
           onClick={handleSubmit}
           className="absolute bottom-3 right-3 p-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors"
         >

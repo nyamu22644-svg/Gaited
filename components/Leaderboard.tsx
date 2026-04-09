@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { TopSeller } from '../types';
 import { formatCurrency } from '../lib/utils';
@@ -30,7 +29,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ sellers }) => {
         {sellers.slice(0, 3).map((seller, index) => {
           let rankColor = 'bg-gray-50 border-gray-100';
           let icon = <span className="font-bold text-gray-400">#{seller.rank}</span>;
-          
+
           if (index === 0) {
             rankColor = 'bg-gradient-to-br from-yellow-50 to-amber-50 border-yellow-200 ring-1 ring-yellow-400/30';
             icon = <Crown className="text-yellow-600" fill="currentColor" size={20} />;
@@ -45,14 +44,14 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ sellers }) => {
           return (
             <div key={seller.id} className={`relative flex items-center p-4 rounded-xl border ${rankColor} transition-transform hover:-translate-y-1`}>
               <div className="relative mr-4">
-                 <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm">
-                    <img src={seller.avatar_url} alt={seller.username} className="w-full h-full object-cover" />
-                 </div>
-                 <div className="absolute -top-2 -right-2 bg-white rounded-full p-1 shadow-sm">
-                    {icon}
-                 </div>
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                  <img src={seller.avatar_url} alt={seller.username} className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute -top-2 -right-2 bg-white rounded-full p-1 shadow-sm">
+                  {icon}
+                </div>
               </div>
-              
+
               <div className="flex-1 min-w-0">
                 <h3 className="font-bold text-gray-900 truncate">{seller.username}</h3>
                 <p className="text-xs text-gray-500 truncate">{seller.university}</p>

@@ -89,7 +89,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
   };
 
   if (loading) {
-    return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-slate-500">Loading Dashboard...</div>;
+    return <div className="min-h-screen bg-slate-50 flex items-center justify-center text-slate-500">Loading Dashboard...</div>;
   }
 
   const maskPhone = (phone?: string) => {
@@ -98,35 +98,38 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 pb-24 relative">
-      <div className="max-w-6xl mx-auto p-4 md:p-8">
+    <div className="min-h-screen bg-slate-50 text-slate-900 pb-24 relative overflow-hidden">
+      <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-green-200/40 blur-3xl" />
+      <div className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full bg-emerald-200/40 blur-3xl" />
+
+      <div className="max-w-6xl mx-auto p-4 md:p-8 relative z-10">
         
         {/* PANIC WIDGET */}
-        <div className="mb-8 bg-gradient-to-r from-green-900 to-slate-900 rounded-2xl p-6 border border-green-800 relative overflow-hidden">
+        <div className="mb-8 bg-gradient-to-r from-green-50 to-white rounded-2xl p-6 border border-slate-200 relative overflow-hidden shadow-sm">
           <div className="absolute top-0 right-0 p-4 opacity-10">
-            <Zap size={120} className="text-white" />
+            <Zap size={120} className="text-green-600" />
           </div>
-          <h2 className="text-xl font-bold text-white mb-2 flex items-center">
-            <Zap className="text-yellow-400 mr-2" fill="currentColor" />
+          <h2 className="text-xl font-bold text-slate-900 mb-2 flex items-center">
+            <Zap className="text-green-600 mr-2" fill="currentColor" />
             Panic Mode: Trending at {user.university}
           </h2>
-          <p className="text-green-100 text-sm mb-4">Classmates are buying these right now. Don't fail.</p>
+          <p className="text-slate-600 text-sm mb-4">Classmates are buying these right now. Don't fail.</p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
             {trendingNotes.map(note => (
               <div 
                 key={note.id} 
                 onClick={() => onNoteSelect(note)}
-                className="bg-black/40 backdrop-blur-sm p-3 rounded-xl border border-white/10 hover:bg-black/60 transition-colors cursor-pointer group"
+                className="bg-white/90 backdrop-blur-sm p-3 rounded-xl border border-slate-200 hover:border-green-200 transition-colors cursor-pointer group shadow-sm"
               >
                 <div className="flex justify-between items-start">
                   <div>
-                    <span className="text-xs font-bold text-green-400 bg-green-900/50 px-1.5 py-0.5 rounded">{note.unit_code}</span>
-                    <h4 className="font-semibold text-white mt-1 text-sm line-clamp-1">{note.title}</h4>
+                    <span className="text-xs font-bold text-green-700 bg-green-100 px-1.5 py-0.5 rounded">{note.unit_code}</span>
+                    <h4 className="font-semibold text-slate-900 mt-1 text-sm line-clamp-1">{note.title}</h4>
                   </div>
-                  <span className="text-white font-bold text-sm">{formatCurrency(note.price)}</span>
+                  <span className="text-slate-900 font-bold text-sm">{formatCurrency(note.price)}</span>
                 </div>
-                <div className="mt-2 flex items-center text-xs text-gray-400 group-hover:text-green-300">
+                <div className="mt-2 flex items-center text-xs text-slate-500 group-hover:text-green-600">
                   Get it now <ArrowRight size={12} className="ml-1" />
                 </div>
               </div>
@@ -134,17 +137,17 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold text-white mb-8">Command Center</h1>
+        <h1 className="text-2xl font-bold text-slate-900 mb-8">Command Center</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* LEFT COLUMN */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-emerald-900/50 to-slate-900"></div>
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-green-100 to-white"></div>
               
               <div className="relative flex flex-col items-center text-center mt-8">
-                <div className="w-24 h-24 rounded-full border-4 border-slate-900 overflow-hidden mb-4 shadow-lg bg-slate-800">
+                <div className="w-24 h-24 rounded-full border-4 border-white overflow-hidden mb-4 shadow-lg bg-slate-100">
                    {user.avatar_url ? (
                       <img src={user.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                    ) : (
@@ -154,12 +157,12 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                    )}
                 </div>
                 
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
                   {user.username}
-                  {user.is_verified_seller && <ShieldCheck size={18} className="text-emerald-400" />}
+                  {user.is_verified_seller && <ShieldCheck size={18} className="text-green-600" />}
                 </h2>
                 
-                <p className="text-slate-400 text-sm mt-1 flex items-center">
+                <p className="text-slate-500 text-sm mt-1 flex items-center">
                   <MapPin size={12} className="mr-1" />
                   Student at {user.university}
                 </p>
@@ -167,16 +170,16 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                 {user.role === 'admin' && (
                   <button 
                     onClick={() => navigate && navigate('/admin')}
-                    className="mt-4 w-full bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/20 py-2 rounded-lg text-sm font-semibold flex items-center justify-center transition-all shadow-lg shadow-emerald-900/20"
+                    className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white border border-green-200 py-2 rounded-lg text-sm font-semibold flex items-center justify-center transition-all shadow-lg shadow-green-200/40"
                   >
                     <LayoutDashboard size={14} className="mr-2" />
                     Switch to Admin Console
                   </button>
                 )}
 
-                <div className="mt-6 w-full bg-slate-950 p-4 rounded-xl border border-slate-800 text-left">
+                <div className="mt-6 w-full bg-slate-50 p-4 rounded-xl border border-slate-200 text-left">
                   <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">M-Pesa Connected</p>
-                  <p className="text-slate-300 font-mono tracking-widest">{maskPhone(user.mpesa_number)}</p>
+                  <p className="text-slate-700 font-mono tracking-widest">{maskPhone(user.mpesa_number)}</p>
                 </div>
 
                 <button 
@@ -184,14 +187,14 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                     setProfileForm({ username: user.username, mpesa: user.mpesa_number || '' });
                     setShowEditProfile(true);
                   }}
-                  className="mt-6 w-full py-2 border border-slate-700 rounded-lg text-sm text-slate-300 hover:bg-slate-800 transition-colors flex items-center justify-center"
+                  className="mt-6 w-full py-2 border border-slate-300 rounded-lg text-sm text-slate-700 hover:bg-slate-100 transition-colors flex items-center justify-center"
                 >
                   <Edit size={14} className="mr-2" /> Edit Profile
                 </button>
 
                 <button 
                   onClick={onLogout}
-                  className="mt-3 w-full py-2 border border-red-900/30 bg-red-500/5 text-red-400 rounded-lg text-sm hover:bg-red-500/10 transition-colors flex items-center justify-center"
+                  className="mt-3 w-full py-2 border border-red-200 bg-red-50 text-red-600 rounded-lg text-sm hover:bg-red-100 transition-colors flex items-center justify-center"
                 >
                   <LogOut size={14} className="mr-2" /> Log Out
                 </button>
@@ -203,16 +206,16 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                 totalEarnings={wallet?.referral_earnings} 
             />
 
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                <h3 className="text-slate-400 text-sm font-medium mb-2">Seller Reputation</h3>
-                <div className="flex items-end gap-2">
-                    <span className="text-3xl font-bold text-white">{user.reputation_score}</span>
-                    <span className="text-sm text-slate-500 mb-1">Points</span>
-                </div>
-                <div className="w-full bg-slate-800 h-2 rounded-full mt-3">
-                    <div className="bg-emerald-500 h-2 rounded-full" style={{ width: '75%' }}></div>
-                </div>
-                <p className="text-xs text-slate-500 mt-2">Top 15% of sellers this week.</p>
+            <div className="bg-white border border-slate-200 rounded-2xl p-6">
+              <h3 className="text-slate-600 text-sm font-medium mb-2">Seller Reputation</h3>
+              <div className="flex items-end gap-2">
+                <span className="text-3xl font-bold text-slate-900">{user.reputation_score}</span>
+                <span className="text-sm text-slate-500 mb-1">Points</span>
+              </div>
+              <div className="w-full bg-slate-200 h-2 rounded-full mt-3">
+                    <div className="bg-green-500 h-2 rounded-full" style={{ width: '75%' }}></div>
+              </div>
+              <p className="text-xs text-slate-500 mt-2">Top 15% of sellers this week.</p>
             </div>
           </div>
 
@@ -224,23 +227,23 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
               onWithdraw={handleWithdraw} 
             />}
 
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden min-h-[400px]">
-              <div className="flex border-b border-slate-800">
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden min-h-[400px] shadow-sm">
+              <div className="flex border-b border-slate-200">
                 <button 
                   onClick={() => setActiveTab('uploads')}
-                  className={`flex-1 py-4 text-sm font-medium transition-colors ${activeTab === 'uploads' ? 'bg-slate-800 text-white border-b-2 border-emerald-500' : 'text-slate-500 hover:text-slate-300'}`}
+                  className={`flex-1 py-4 text-sm font-medium transition-colors ${activeTab === 'uploads' ? 'bg-slate-50 text-slate-900 border-b-2 border-green-600' : 'text-slate-500 hover:text-slate-700'}`}
                 >
                   My Uploads
                 </button>
                 <button 
                   onClick={() => setActiveTab('purchases')}
-                  className={`flex-1 py-4 text-sm font-medium transition-colors ${activeTab === 'purchases' ? 'bg-slate-800 text-white border-b-2 border-emerald-500' : 'text-slate-500 hover:text-slate-300'}`}
+                  className={`flex-1 py-4 text-sm font-medium transition-colors ${activeTab === 'purchases' ? 'bg-slate-50 text-slate-900 border-b-2 border-green-600' : 'text-slate-500 hover:text-slate-700'}`}
                 >
                   My Purchases
                 </button>
                 <button 
                   onClick={() => setActiveTab('bounties')}
-                  className={`flex-1 py-4 text-sm font-medium transition-colors ${activeTab === 'bounties' ? 'bg-slate-800 text-white border-b-2 border-emerald-500' : 'text-slate-500 hover:text-slate-300'}`}
+                  className={`flex-1 py-4 text-sm font-medium transition-colors ${activeTab === 'bounties' ? 'bg-slate-50 text-slate-900 border-b-2 border-green-600' : 'text-slate-500 hover:text-slate-700'}`}
                 >
                   Bounties
                 </button>
@@ -251,11 +254,11 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                     <div className="space-y-4">
                         {myUploads.length === 0 ? (
                             <div className="text-center py-12">
-                                <UploadCloud size={48} className="mx-auto text-slate-700 mb-4" />
+                                <UploadCloud size={48} className="mx-auto text-slate-300 mb-4" />
                                 <p className="text-slate-500">You haven't uploaded any notes yet.</p>
                                 <button 
                                   onClick={() => setShowUploadModal(true)}
-                                  className="mt-4 text-emerald-400 font-bold text-sm hover:underline"
+                                  className="mt-4 text-green-600 font-bold text-sm hover:underline"
                                 >
                                   Start Selling
                                 </button>
@@ -264,24 +267,24 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                             <>
                               <button 
                                 onClick={() => setShowUploadModal(true)}
-                                className="w-full mb-4 py-2 border border-dashed border-slate-700 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition-colors flex items-center justify-center text-sm"
+                                className="w-full mb-4 py-2 border border-dashed border-slate-300 rounded-lg text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors flex items-center justify-center text-sm"
                               >
                                 + Upload New Note
                               </button>
                               {myUploads.map(note => (
-                                  <div key={note.id} className="flex items-center justify-between p-4 bg-slate-950 rounded-xl border border-slate-800 hover:border-slate-700 transition-colors">
+                                  <div key={note.id} className="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-200 hover:border-green-200 transition-colors">
                                       <div className="flex items-center gap-4">
-                                          <div className="h-12 w-12 bg-slate-800 rounded-lg flex items-center justify-center text-slate-500">
+                                          <div className="h-12 w-12 bg-slate-100 rounded-lg flex items-center justify-center text-slate-500">
                                               <FileText size={20} />
                                           </div>
                                           <div>
-                                              <h4 className="text-white font-medium text-sm line-clamp-1">{note.title}</h4>
+                                              <h4 className="text-slate-900 font-medium text-sm line-clamp-1">{note.title}</h4>
                                               <p className="text-slate-500 text-xs">{note.unit_code} • {note.university}</p>
                                           </div>
                                       </div>
                                       <div className="text-right">
-                                          <p className="text-white font-bold text-sm">{formatCurrency(note.price)}</p>
-                                          <p className="text-emerald-500 text-xs">Sold 12x</p>
+                                          <p className="text-slate-900 font-bold text-sm">{formatCurrency(note.price)}</p>
+                                          <p className="text-green-600 text-xs">Sold 12x</p>
                                       </div>
                                   </div>
                               ))}
@@ -293,17 +296,17 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                 {activeTab === 'purchases' && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                          {purchases.map(note => (
-                             <div key={note.id} className="p-4 bg-slate-950 rounded-xl border border-slate-800">
-                                 <div className="aspect-video bg-slate-900 rounded-lg mb-3 relative overflow-hidden group">
-                                    <img src={note.preview_image} className="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity" />
+                       <div key={note.id} className="p-4 bg-white rounded-xl border border-slate-200">
+                         <div className="aspect-video bg-slate-100 rounded-lg mb-3 relative overflow-hidden group">
+                          <img src={note.preview_image} className="w-full h-full object-cover opacity-70 group-hover:opacity-80 transition-opacity" />
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <span className="bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded text-xs border border-emerald-500/50">Owned</span>
+                                        <span className="bg-green-600/10 text-green-700 px-2 py-1 rounded text-xs border border-green-200">Owned</span>
                                     </div>
                                  </div>
-                                 <h4 className="text-white font-medium text-sm truncate">{note.title}</h4>
+                         <h4 className="text-slate-900 font-medium text-sm truncate">{note.title}</h4>
                                  <button 
                                    onClick={() => onNoteSelect(note)}
-                                   className="mt-3 w-full py-2 bg-slate-800 text-white text-xs rounded-lg hover:bg-slate-700 transition-colors"
+                                   className="mt-3 w-full py-2 bg-green-600 text-white text-xs rounded-lg hover:bg-green-700 transition-colors"
                                  >
                                    Read Now
                                  </button>
@@ -313,8 +316,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                 )}
                 
                 {activeTab === 'bounties' && (
-                    <div className="text-center py-12 text-slate-500">
-                        <Package size={48} className="mx-auto text-slate-700 mb-4" />
+                  <div className="text-center py-12 text-slate-500">
+                    <Package size={48} className="mx-auto text-slate-300 mb-4" />
                         No active bounty requests found.
                     </div>
                 )}
@@ -326,30 +329,30 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
 
       {/* EDIT PROFILE MODAL */}
       {showEditProfile && (
-         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in">
-           <div className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6 relative">
-              <button onClick={() => setShowEditProfile(false)} className="absolute top-4 right-4 text-slate-500 hover:text-white"><X size={20}/></button>
-              <h2 className="text-xl font-bold text-white mb-4">Edit Profile</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-6 relative shadow-xl">
+            <button onClick={() => setShowEditProfile(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700"><X size={20}/></button>
+            <h2 className="text-xl font-bold text-slate-900 mb-4">Edit Profile</h2>
               <form onSubmit={handleSaveProfile} className="space-y-4">
                   <div>
-                     <label className="text-slate-400 text-xs uppercase mb-1 block">Username</label>
+                <label className="text-slate-600 text-xs uppercase mb-1 block">Username</label>
                      <input 
-                       className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white outline-none focus:border-emerald-500" 
+                  className="w-full bg-white border border-slate-300 rounded-lg p-3 text-slate-900 outline-none focus:ring-2 focus:ring-green-500" 
                        value={profileForm.username}
                        onChange={e => setProfileForm({...profileForm, username: e.target.value})}
                        required
                      />
                   </div>
                   <div>
-                     <label className="text-slate-400 text-xs uppercase mb-1 block">M-Pesa Number</label>
+                <label className="text-slate-600 text-xs uppercase mb-1 block">M-Pesa Number</label>
                      <input 
-                       className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white outline-none focus:border-emerald-500" 
+                  className="w-full bg-white border border-slate-300 rounded-lg p-3 text-slate-900 outline-none focus:ring-2 focus:ring-green-500" 
                        value={profileForm.mpesa}
                        onChange={e => setProfileForm({...profileForm, mpesa: e.target.value})}
                        required
                      />
                   </div>
-                  <button type="submit" disabled={isSubmitting} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl mt-4">
+              <button type="submit" disabled={isSubmitting} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl mt-4">
                      {isSubmitting ? 'Saving...' : 'Save Changes'}
                   </button>
               </form>
@@ -359,15 +362,15 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
 
       {/* UPLOAD NOTE MODAL */}
       {showUploadModal && (
-         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in">
-           <div className="bg-slate-900 border border-slate-800 w-full max-w-md rounded-2xl p-6 relative">
-              <button onClick={() => setShowUploadModal(false)} className="absolute top-4 right-4 text-slate-500 hover:text-white"><X size={20}/></button>
-              <h2 className="text-xl font-bold text-white mb-4">Upload New Note</h2>
+         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 animate-in fade-in">
+           <div className="bg-white border border-slate-200 w-full max-w-md rounded-2xl p-6 relative shadow-xl">
+              <button onClick={() => setShowUploadModal(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700"><X size={20}/></button>
+              <h2 className="text-xl font-bold text-slate-900 mb-4">Upload New Note</h2>
               <form onSubmit={handleUpload} className="space-y-4">
                   <div>
-                     <label className="text-slate-400 text-xs uppercase mb-1 block">Note Title</label>
+                     <label className="text-slate-600 text-xs uppercase mb-1 block">Note Title</label>
                      <input 
-                       className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white outline-none focus:border-emerald-500" 
+                       className="w-full bg-white border border-slate-300 rounded-lg p-3 text-slate-900 outline-none focus:ring-2 focus:ring-green-500" 
                        placeholder="e.g. Calculus I Mid-Semester Notes"
                        value={uploadForm.title}
                        onChange={e => setUploadForm({...uploadForm, title: e.target.value})}
@@ -376,9 +379,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <label className="text-slate-400 text-xs uppercase mb-1 block">Unit Code</label>
+                        <label className="text-slate-600 text-xs uppercase mb-1 block">Unit Code</label>
                         <input 
-                            className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white outline-none focus:border-emerald-500" 
+                            className="w-full bg-white border border-slate-300 rounded-lg p-3 text-slate-900 outline-none focus:ring-2 focus:ring-green-500" 
                             placeholder="SMA 101"
                             value={uploadForm.unit_code}
                             onChange={e => setUploadForm({...uploadForm, unit_code: e.target.value})}
@@ -386,10 +389,10 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                         />
                     </div>
                     <div>
-                        <label className="text-slate-400 text-xs uppercase mb-1 block">Price (KES)</label>
+                        <label className="text-slate-600 text-xs uppercase mb-1 block">Price (KES)</label>
                         <input 
                             type="number"
-                            className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-white outline-none focus:border-emerald-500" 
+                            className="w-full bg-white border border-slate-300 rounded-lg p-3 text-slate-900 outline-none focus:ring-2 focus:ring-green-500" 
                             value={uploadForm.price}
                             onChange={e => setUploadForm({...uploadForm, price: e.target.value})}
                             required
@@ -397,13 +400,13 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ navigate, onLogout, onNot
                     </div>
                   </div>
                   
-                  <div className="border-2 border-dashed border-slate-800 rounded-xl p-6 text-center hover:border-emerald-500/50 transition-colors cursor-pointer bg-slate-950/50">
-                     <UploadCloud className="mx-auto text-slate-500 mb-2" />
-                     <p className="text-sm text-slate-400">Drag & drop PDF here</p>
-                     <p className="text-xs text-slate-600 mt-1">or click to browse</p>
+                  <div className="border-2 border-dashed border-slate-300 rounded-xl p-6 text-center hover:border-green-300 transition-colors cursor-pointer bg-slate-50">
+                     <UploadCloud className="mx-auto text-slate-400 mb-2" />
+                     <p className="text-sm text-slate-600">Drag & drop PDF here</p>
+                     <p className="text-xs text-slate-500 mt-1">or click to browse</p>
                   </div>
 
-                  <button type="submit" disabled={isSubmitting} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl mt-4">
+                  <button type="submit" disabled={isSubmitting} className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl mt-4">
                      {isSubmitting ? 'Uploading...' : 'Publish Note'}
                   </button>
               </form>

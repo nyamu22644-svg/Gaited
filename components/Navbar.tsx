@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Home, Wallet, Search } from 'lucide-react';
+import { Home, Wallet, Search, BookOpenCheck } from 'lucide-react';
 import { Profile } from '../types';
 import Logo from './Logo';
 
@@ -30,6 +30,14 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, setActiveTab, user }) => {
           >
             <Search size={24} />
             <span className="text-xs mt-1">Bounties</span>
+          </button>
+
+          <button 
+            onClick={() => setActiveTab('study')}
+            className={`flex flex-col items-center justify-center w-full md:w-auto p-2 ${activeTab === 'study' ? 'text-green-600' : 'text-gray-500'}`}
+          >
+            <BookOpenCheck size={24} />
+            <span className="text-xs mt-1">Study</span>
           </button>
 
           <button 
