@@ -4,22 +4,22 @@
 
 # GAITED
 
-Kenyan academic marketplace with a study engine for active recall, exam prep, and guided learning.
+GAITED is a Kenyan academic marketplace with a built-in study engine for active recall, exam prep, and guided learning.
 
-## Features
+## Highlights
 
-- Marketplace pages (notes, sellers, bounties)
+- Marketplace for notes, sellers, and bounties
 - Study engine: ingestion, recall, mastery, exam mode
 - PDF/DOCX parsing with OCR for scans and images
-- PWA support (installable)
+- PWA-ready install on mobile
 
-## Tech
+## Stack
 
 - Vite + React + TypeScript
 - Supabase auth
 - Gemini API (optional)
 
-## Local setup
+## Quick start
 
 **Prerequisites:** Node.js 18+
 
@@ -33,18 +33,20 @@ npm install
 GEMINI_API_KEY=your_key_here
 ```
 
-3) Run dev server
+3) Run the dev server
 ```
 npm run dev
 ```
 
-## Build
+## Scripts
 
 ```
+npm run dev
 npm run build
+npm run preview
 ```
 
-## Deploy (Vercel)
+## Deployment (Vercel)
 
 ```
 vercel --prod
